@@ -1,0 +1,10 @@
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\bin\Debug\MixerController.exe.config
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\bin\Debug\MixerController.exe
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\bin\Debug\MixerController.pdb
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.csprojAssemblyReference.cache
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.Form1.resources
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.Properties.Resources.resources
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.csproj.GenerateResource.cache
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.csproj.CoreCompileInputs.cache
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.exe
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.pdb
