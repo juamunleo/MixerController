@@ -8,3 +8,6 @@ C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\
 C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.csproj.CoreCompileInputs.cache
 C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.exe
 C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.pdb
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\bin\Debug\AudioSwitcher.AudioApi.CoreAudio.dll
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\bin\Debug\AudioSwitcher.AudioApi.dll
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.csproj.CopyComplete

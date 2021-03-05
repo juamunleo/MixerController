@@ -1,36 +1,40 @@
-﻿using System;
+﻿using AudioSwitcher.AudioApi.CoreAudio;
+using AudioSwitcher.AudioApi.Session;
+using System;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.IO.Ports;
 
 namespace MixerController
 {
-    public class Test
+    public class Program
     {
-        private const int APPCOMMAND_VOLUME_MUTE = 0x80000;
-        private const int APPCOMMAND_VOLUME_UP = 0xA0000;
-        private const int APPCOMMAND_VOLUME_DOWN = 0x90000;
-        private const int WM_APPCOMMAND = 0x319;
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr SendMessageW(IntPtr hWnd, int Msg,
-            IntPtr wParam, IntPtr lParam);
-
-        private void Mute()
+        private static SerialPort port = new SerialPort("COM6", 9600, Parity.None, 8, StopBits.One);
+        static String app = "Spotify";
+        static void Main(string[] args)
         {
-            SendMessageW(new WindowInteropHelper(this).Handle, WM_APPCOMMAND, new WindowInteropHelper(this).Handle,
-                (IntPtr)APPCOMMAND_VOLUME_MUTE);
-        }
+            port.Open();
+            while (true)
+            {
+                Console.Write(port.ReadLine());
+                CoreAudioController audioController = new CoreAudioController();
+                foreach (CoreAudioDevice d in audioController.GetDevices())
+                {
 
-        private void VolDown()
-        {
-            SendMessageW(new WindowInteropHelper(this).Handle, WM_APPCOMMAND, new WindowInteropHelper(this).Handle,
-                (IntPtr)APPCOMMAND_VOLUME_DOWN);
-        }
+                    if ((d.IsDefaultDevice || d.IsDefaultCommunicationsDevice) && d.IsPlaybackDevice)
+                    {
+                        foreach (IAudioSession s in d.SessionController.ActiveSessions())
+                        {
+                            if (s.DisplayName.Equals(app))
+                            {
+                                //s.Volume = Int32.Parse(port.ReadLine());
+                                Console.Write(s.DisplayName + ": " + s.Volume);
+                            }
+                        }
+                    }
 
-        private void VolUp()
-        {
-            SendMessageW(new WindowInteropHelper(this).Handle, WM_APPCOMMAND, new WindowInteropHelper(this).Handle,
-                (IntPtr)APPCOMMAND_VOLUME_UP);
+                }
+            }
         }
     }
 }
