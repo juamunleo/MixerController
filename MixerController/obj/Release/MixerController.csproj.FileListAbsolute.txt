@@ -1,0 +1,12 @@
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\bin\Release\MixerController.exe.config
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\bin\Release\MixerController.exe
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\bin\Release\MixerController.pdb
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\bin\Release\AudioSwitcher.AudioApi.CoreAudio.dll
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\bin\Release\AudioSwitcher.AudioApi.dll
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Release\MixerController.MixerController.resources
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Release\MixerController.Properties.Resources.resources
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Release\MixerController.csproj.GenerateResource.cache
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Release\MixerController.csproj.CoreCompileInputs.cache
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Release\MixerController.csproj.CopyComplete
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Release\MixerController.exe
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Release\MixerController.pdb
