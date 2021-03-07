@@ -314,6 +314,7 @@
             this.Controls.Add(this.refresh_com_ports);
             this.Controls.Add(this.com_ports);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MixerController";
             this.Text = "MixerController";
             this.Load += new System.EventHandler(this.MixerController_Load);

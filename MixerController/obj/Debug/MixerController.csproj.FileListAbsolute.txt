@@ -10,3 +10,4 @@ C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\bin\Debug\
 C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\bin\Debug\AudioSwitcher.AudioApi.dll
 C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.csproj.CopyComplete
 C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.MixerController.resources
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Debug\MixerController.csprojAssemblyReference.cache
