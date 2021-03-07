@@ -1,5 +1,6 @@
 ﻿using AudioSwitcher.AudioApi.CoreAudio;
 using AudioSwitcher.AudioApi.Session;
+using MixerController.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -427,6 +428,26 @@ namespace MixerController
         private void select_device_3_CheckedChanged(object sender, EventArgs e)
         {
             Refresh_List_Device(list_3);
+        }
+
+        private void MixerController_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            notifyIcon.Visible = false;
+            if (t != null)
+            {
+                t.Abort();
+            }
+        }
+
+        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            this.TopMost = true;
+        }
+
+        private void MixerController_Deactivate(object sender, EventArgs e)
+        {
+            Hide();
         }
     }
 }

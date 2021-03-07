@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MixerController));
             this.com_ports = new System.Windows.Forms.ComboBox();
             this.refresh_com_ports = new System.Windows.Forms.Button();
             this.list_0 = new System.Windows.Forms.ComboBox();
@@ -51,6 +53,7 @@
             this.select_device_3 = new System.Windows.Forms.RadioButton();
             this.select_app_3 = new System.Windows.Forms.RadioButton();
             this.start = new System.Windows.Forms.Button();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -293,6 +296,15 @@
             this.start.UseVisualStyleBackColor = true;
             this.start.Click += new System.EventHandler(this.start_Click);
             // 
+            // notifyIcon
+            // 
+            this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon.BalloonTipTitle = "MixerController";
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "MixerController";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
+            // 
             // MixerController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -314,9 +326,14 @@
             this.Controls.Add(this.refresh_com_ports);
             this.Controls.Add(this.com_ports);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MixerController";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MixerController";
+            this.Deactivate += new System.EventHandler(this.MixerController_Deactivate);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MixerController_FormClosing);
             this.Load += new System.EventHandler(this.MixerController_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
@@ -355,6 +372,7 @@
         private System.Windows.Forms.RadioButton select_device_3;
         private System.Windows.Forms.RadioButton select_app_3;
         private System.Windows.Forms.Button start;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }
 

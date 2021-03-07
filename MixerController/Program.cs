@@ -14,6 +14,7 @@ namespace MixerController
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MixerController());
+            Application.Exit();
         }
         private void test()
         {
