@@ -35,28 +35,28 @@ void loop() {
   POT_2_VAL = (long) (1023 - analogRead(POT_2_PIN))*100/1023;
   POT_3_VAL = (long) (1023 - analogRead(POT_3_PIN))*100/1023;
   
-  if(POT_0_VAL != last_POT_0_VAL){
+  if(abs(POT_0_VAL - last_POT_0_VAL)>1){
     Serial.print("0");
     Serial.print(POT_0_VAL);
     Serial.print("\n");
     last_POT_0_VAL = POT_0_VAL;
   }
 
-  if(POT_1_VAL != last_POT_1_VAL){
+  if(abs(POT_1_VAL - last_POT_1_VAL)>1){
     Serial.print("1");
     Serial.print(POT_1_VAL);
     Serial.print("\n");
     last_POT_1_VAL = POT_1_VAL;
   }
 
-  if(POT_2_VAL != last_POT_2_VAL){
+  if(abs(POT_2_VAL - last_POT_2_VAL)>1){
     Serial.print("2");
     Serial.print(POT_2_VAL);
     Serial.print("\n");
     last_POT_2_VAL = POT_2_VAL;
   }
 
-  if(POT_3_VAL != last_POT_3_VAL){
+  if(abs(POT_3_VAL - last_POT_3_VAL)>1){
     Serial.print("3");
     Serial.print(POT_3_VAL);
     Serial.print("\n");

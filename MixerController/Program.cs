@@ -9,10 +9,16 @@ namespace MixerController
 {
     public class Program
     {
-        private static SerialPort port = new SerialPort("COM6", 9600, Parity.None, 8, StopBits.One);
-        static String app = "Spotify";
-        static void Main(string[] args)
+        static void Main()
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MixerController());
+        }
+        private void test()
+        {
+            SerialPort port = new SerialPort("COM6", 9600, Parity.None, 8, StopBits.One);
+            String app = "Spotify";
             port.Open();
             while (true)
             {
@@ -37,4 +43,5 @@ namespace MixerController
             }
         }
     }
+   
 }
