@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
@@ -66,18 +67,18 @@ namespace MixerController
                     }
                     foreach (IAudioSession s in d.SessionController.ActiveSessions())
                     {
-                        list_1.Items.Add(s.DisplayName);
-                        list_2.Items.Add(s.DisplayName);
-                        list_3.Items.Add(s.DisplayName);
-                        if (s.DisplayName.Equals(default_app_1))
+                        list_1.Items.Add(Process.GetProcessById(s.ProcessId).ProcessName);
+                        list_2.Items.Add(Process.GetProcessById(s.ProcessId).ProcessName);
+                        list_3.Items.Add(Process.GetProcessById(s.ProcessId).ProcessName);
+                        if (Process.GetProcessById(s.ProcessId).ProcessName.Equals(default_app_1))
                         {
                             s1 = s;
-                            list_1.SelectedItem = s1.DisplayName;
+                            list_1.SelectedItem = Process.GetProcessById(s1.ProcessId).ProcessName;
                         }
-                        else if (s.DisplayName.Equals(default_app_2))
+                        else if (Process.GetProcessById(s.ProcessId).ProcessName.Equals(default_app_2))
                         {
                             s2 = s;
-                            list_2.SelectedItem = s2.DisplayName;
+                            list_2.SelectedItem = Process.GetProcessById(s2.ProcessId).ProcessName;
                         }
                     }
                 }
@@ -261,7 +262,7 @@ namespace MixerController
                 {
                     foreach (IAudioSession s in d.SessionController.ActiveSessions())
                     {
-                        list.Items.Add(s.DisplayName);
+                        list.Items.Add(Process.GetProcessById(s.ProcessId).ProcessName);
                     }
                 }
             }
@@ -369,7 +370,7 @@ namespace MixerController
                 {
                     foreach (IAudioSession s in d.SessionController.ActiveSessions())
                     {
-                        if (s.DisplayName.Equals(list.SelectedItem.ToString()))
+                        if (Process.GetProcessById(s.ProcessId).ProcessName.Equals(list.SelectedItem.ToString()))
                         {
                             if (ses == 0)
                             {
