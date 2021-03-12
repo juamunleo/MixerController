@@ -33,7 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>mc.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>MixerController.Program</StartupObject>
@@ -95,9 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\mc.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="mc.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
