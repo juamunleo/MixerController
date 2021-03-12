@@ -10,3 +10,4 @@ C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Releas
 C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Release\MixerController.csproj.CopyComplete
 C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Release\MixerController.exe
 C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Release\MixerController.pdb
+C:\Users\Juan Manuel\Documents\GitHub\MixerController\MixerController\obj\Release\MixerController.csprojAssemblyReference.cache
