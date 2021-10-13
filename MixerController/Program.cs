@@ -16,33 +16,5 @@ namespace MixerController
             Application.Run(new MixerController());
             Application.Exit();
         }
-        private void test()
-        {
-            SerialPort port = new SerialPort("COM6", 9600, Parity.None, 8, StopBits.One);
-            String app = "Spotify";
-            port.Open();
-            while (true)
-            {
-                Console.Write(port.ReadLine());
-                CoreAudioController audioController = new CoreAudioController();
-                foreach (CoreAudioDevice d in audioController.GetDevices())
-                {
-
-                    if ((d.IsDefaultDevice || d.IsDefaultCommunicationsDevice) && d.IsPlaybackDevice)
-                    {
-                        foreach (IAudioSession s in d.SessionController.ActiveSessions())
-                        {
-                            if (s.DisplayName.Equals(app))
-                            {
-                                //s.Volume = Int32.Parse(port.ReadLine());
-                                Console.Write(s.DisplayName + ": " + s.Volume);
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-    }
-   
+    } 
 }
