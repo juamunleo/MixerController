@@ -44,12 +44,12 @@ namespace MixerController
 
         public MixerController()
         {
+            audioController = new CoreAudioController();
             InitializeComponent();
         }
 
         private void MixerController_Load(object sender, EventArgs e)
         {
-            audioController = new CoreAudioController();
             List<String> com_ports_list = SerialPort.GetPortNames().ToList();
             com_ports.Items.Clear();
             foreach (String port in com_ports_list)
@@ -96,10 +96,8 @@ namespace MixerController
             }
             com_ports.SelectedIndex = 0;
         }
-        public void com_ports_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            Console.WriteLine("Data Received");
-        }
+
+
         private void start_Click(object sender, EventArgs e)
         {
             if (!started)
@@ -123,13 +121,11 @@ namespace MixerController
                     catch(Exception) { }
                     if (port.IsOpen)
                     {
-                        port.DataReceived += com_ports_DataReceived;
                         start.Text = "Stop";
                         started = true;
                         com_ports.Enabled = false;
                         refresh_com_ports.Enabled = false;
-                        t = new Thread(Listen);
-                        t.Start();
+                        port.DataReceived += Listen;
                     }
                     else
                     {
@@ -141,6 +137,7 @@ namespace MixerController
             }
             else
             {
+                port.DataReceived -= Listen;
                 started = false;
                 com_ports.Enabled = true;
                 refresh_com_ports.Enabled = true;
@@ -150,86 +147,84 @@ namespace MixerController
             }
         }
 
-        private void Listen()
+        private void Listen(object sender, EventArgs e)
         {
-            while (started) {
-                try
+            try
+            {
+                line = port.ReadLine();
+            }catch(Exception){ }
+            if (line.StartsWith("0"))
+            {
+                if (controlDefault.Checked)
                 {
-                    line = port.ReadLine();
-                }catch(Exception){ }
-                if (line.StartsWith("0"))
-                {
-                    if (controlDefault.Checked)
+                    audioController.DefaultPlaybackDevice.Volume = int.Parse(line.Substring(1));
+                }
+                else
+                { 
+                    if (app_0.Checked)
                     {
-                        audioController.DefaultPlaybackDevice.Volume = int.Parse(line.Substring(1));
-                    }
-                    else
-                    { 
-                        if (app_0.Checked)
+                        if (s0 != null)
                         {
-                            if (s0 != null)
-                            {
-                                s0.Volume = int.Parse(line.Substring(1));
-                            }
+                            s0.Volume = int.Parse(line.Substring(1));
                         }
-                        else if (dev_0.Checked)
+                    }
+                    else if (dev_0.Checked)
+                    {
+                        if (d0 != null)
                         {
-                            if (d0 != null)
-                            {
-                                d0.Volume = int.Parse(line.Substring(1));
-                            }
+                            d0.Volume = int.Parse(line.Substring(1));
                         }
                     }
                 }
-                if (line.StartsWith("1"))
+            }
+            if (line.StartsWith("1"))
+            {
+                if (app_1.Checked)
                 {
-                    if (app_1.Checked)
+                    if (s1 != null)
                     {
-                        if (s1 != null)
-                        {
-                            s1.Volume = int.Parse(line.Substring(1));
-                        }
-                    }
-                    else if (dev_1.Checked)
-                    {
-                        if (d1 != null)
-                        {
-                            d1.Volume = int.Parse(line.Substring(1));
-                        }
+                        s1.Volume = int.Parse(line.Substring(1));
                     }
                 }
-                if (line.StartsWith("2"))
+                else if (dev_1.Checked)
                 {
-                    if (app_2.Checked)
+                    if (d1 != null)
                     {
-                        if (s2 != null)
-                        {
-                            s2.Volume = int.Parse(line.Substring(1));
-                        }
-                    }
-                    else if (dev_2.Checked)
-                    {
-                        if (d2 != null)
-                        {
-                            d2.Volume = int.Parse(line.Substring(1));
-                        }
+                        d1.Volume = int.Parse(line.Substring(1));
                     }
                 }
-                if (line.StartsWith("3"))
+            }
+            if (line.StartsWith("2"))
+            {
+                if (app_2.Checked)
                 {
-                    if (app_3.Checked)
+                    if (s2 != null)
                     {
-                        if (s3 != null)
-                        {
-                            s3.Volume = int.Parse(line.Substring(1));
-                        }
+                        s2.Volume = int.Parse(line.Substring(1));
                     }
-                    else if (dev_3.Checked)
+                }
+                else if (dev_2.Checked)
+                {
+                    if (d2 != null)
                     {
-                        if (d3 != null)
-                        {
-                            d3.Volume = int.Parse(line.Substring(1));
-                        }
+                        d2.Volume = int.Parse(line.Substring(1));
+                    }
+                }
+            }
+            if (line.StartsWith("3"))
+            {
+                if (app_3.Checked)
+                {
+                    if (s3 != null)
+                    {
+                        s3.Volume = int.Parse(line.Substring(1));
+                    }
+                }
+                else if (dev_3.Checked)
+                {
+                    if (d3 != null)
+                    {
+                        d3.Volume = int.Parse(line.Substring(1));
                     }
                 }
             }
