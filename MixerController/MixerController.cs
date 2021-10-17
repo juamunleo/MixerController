@@ -96,7 +96,10 @@ namespace MixerController
             }
             com_ports.SelectedIndex = 0;
         }
-
+        public void com_ports_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            Console.WriteLine("Data Received");
+        }
         private void start_Click(object sender, EventArgs e)
         {
             if (!started)
@@ -120,6 +123,7 @@ namespace MixerController
                     catch(Exception) { }
                     if (port.IsOpen)
                     {
+                        port.DataReceived += com_ports_DataReceived;
                         start.Text = "Stop";
                         started = true;
                         com_ports.Enabled = false;
