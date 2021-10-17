@@ -55,6 +55,7 @@
             this.start = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            this.controlDefault = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -316,11 +317,23 @@
             this.label1.TabIndex = 23;
             this.label1.Text = "Plcg";
             // 
+            // controlDefault
+            // 
+            this.controlDefault.AutoSize = true;
+            this.controlDefault.Location = new System.Drawing.Point(156, 45);
+            this.controlDefault.Name = "controlDefault";
+            this.controlDefault.Size = new System.Drawing.Size(94, 17);
+            this.controlDefault.TabIndex = 24;
+            this.controlDefault.Text = "Control default";
+            this.controlDefault.UseVisualStyleBackColor = true;
+            this.controlDefault.CheckStateChanged += new System.EventHandler(this.controlDefault_CheckStateChanged);
+            // 
             // MixerController
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(255, 315);
+            this.Controls.Add(this.controlDefault);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.start);
             this.Controls.Add(this.flowLayoutPanel4);
@@ -387,6 +400,7 @@
         private System.Windows.Forms.Button start;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox controlDefault;
     }
 }
 

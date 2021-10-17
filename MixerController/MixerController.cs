@@ -41,6 +41,7 @@ namespace MixerController
         private RadioButton dev_3;
         private String line = "";
         Thread t;
+
         public MixerController()
         {
             InitializeComponent();
@@ -84,6 +85,7 @@ namespace MixerController
                 }
             }
         }
+
         private void refresh_com_ports_Click(object sender, EventArgs e)
         {
             List<String> com_ports_list = SerialPort.GetPortNames().ToList();
@@ -92,6 +94,7 @@ namespace MixerController
             {
                 com_ports.Items.Add(p);
             }
+            com_ports.SelectedIndex = 0;
         }
 
         private void start_Click(object sender, EventArgs e)
@@ -108,17 +111,35 @@ namespace MixerController
                 dev_3 = select_device_3;
                 if (com_ports.SelectedItem != null)
                 {
+                    
                     port = new SerialPort(com_ports.SelectedItem.ToString(), 9600, Parity.None, 8, StopBits.One);
-                    port.Open();
-                    start.Text = "Stop";
-                    started = true;
+                    try
+                    {
+                        port.Open();
+                    }
+                    catch(Exception) { }
+                    if (port.IsOpen)
+                    {
+                        start.Text = "Stop";
+                        started = true;
+                        com_ports.Enabled = false;
+                        refresh_com_ports.Enabled = false;
+                        t = new Thread(Listen);
+                        t.Start();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Check if the device is connected.", "Error");
+                        this.Show();
+                    }
                 }
-                t = new Thread(Listen);
-                t.Start();
+                
             }
             else
             {
                 started = false;
+                com_ports.Enabled = true;
+                refresh_com_ports.Enabled = true;
                 port.Close();
                 port.Dispose();
                 start.Text = "Start";
@@ -134,18 +155,25 @@ namespace MixerController
                 }catch(Exception){ }
                 if (line.StartsWith("0"))
                 {
-                    if (app_0.Checked)
+                    if (controlDefault.Checked)
                     {
-                        if (s0 != null)
-                        {
-                            s0.Volume = int.Parse(line.Substring(1));
-                        }
+                        audioController.DefaultPlaybackDevice.Volume = int.Parse(line.Substring(1));
                     }
-                    else if (dev_0.Checked)
-                    {
-                        if (d0 != null)
+                    else
+                    { 
+                        if (app_0.Checked)
                         {
-                            d0.Volume = int.Parse(line.Substring(1));
+                            if (s0 != null)
+                            {
+                                s0.Volume = int.Parse(line.Substring(1));
+                            }
+                        }
+                        else if (dev_0.Checked)
+                        {
+                            if (d0 != null)
+                            {
+                                d0.Volume = int.Parse(line.Substring(1));
+                            }
                         }
                     }
                 }
@@ -449,6 +477,24 @@ namespace MixerController
         private void MixerController_Deactivate(object sender, EventArgs e)
         {
             Hide();
+        }
+
+        private void controlDefault_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (controlDefault.Checked)
+            {
+                select_device_0.Enabled = false;
+                select_app_0.Enabled = false;
+                list_0.Enabled = false;
+                refresh_0.Enabled = false;
+            }
+            else
+            {
+                select_device_0.Enabled = true;
+                select_app_0.Enabled = true;
+                list_0.Enabled = true;
+                refresh_0.Enabled = true;
+            }
         }
     }
 }
