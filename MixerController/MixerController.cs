@@ -149,6 +149,7 @@ namespace MixerController
         private void Listen()
         {
             while (started) {
+                Thread.Sleep(10);
                 try
                 {
                     line = port.ReadLine();
