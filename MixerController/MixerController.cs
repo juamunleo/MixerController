@@ -1,17 +1,12 @@
 ﻿using AudioSwitcher.AudioApi.CoreAudio;
 using AudioSwitcher.AudioApi.Session;
-using MixerController.Properties;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MixerController
@@ -19,12 +14,14 @@ namespace MixerController
     public partial class MixerController : Form
     {
         private CoreAudioController audioController;
-        private String default_app_1 = "Spotify";
-        private String default_app_2 = "Discord";
-        private IAudioSession s0 = null;
-        private IAudioSession s1 = null;
-        private IAudioSession s2 = null;
-        private IAudioSession s3 = null;
+        private String s0 = null;
+        private String s1 = null;
+        private String s2 = null;
+        private String s3 = null;
+        private String saved0 = null;
+        private String saved1 = null;
+        private String saved2 = null;
+        private String saved3 = null;
         private CoreAudioDevice d0 = null;
         private CoreAudioDevice d1 = null;
         private CoreAudioDevice d2 = null;
@@ -40,16 +37,21 @@ namespace MixerController
         private RadioButton dev_2;
         private RadioButton dev_3;
         private String line = "";
-        Thread t;
+        Configuration configManager;
 
         public MixerController()
         {
-            audioController = new CoreAudioController();
             InitializeComponent();
         }
 
         private void MixerController_Load(object sender, EventArgs e)
         {
+            audioController = new CoreAudioController();
+            configManager = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
+            saved0 = ConfigurationManager.AppSettings["app0"];
+            saved1 = ConfigurationManager.AppSettings["app1"];
+            saved2 = ConfigurationManager.AppSettings["app2"];
+            saved3 = ConfigurationManager.AppSettings["app3"];
             List<String> com_ports_list = SerialPort.GetPortNames().ToList();
             com_ports.Items.Clear();
             foreach (String port in com_ports_list)
@@ -71,18 +73,46 @@ namespace MixerController
                         list_1.Items.Add(Process.GetProcessById(s.ProcessId).ProcessName);
                         list_2.Items.Add(Process.GetProcessById(s.ProcessId).ProcessName);
                         list_3.Items.Add(Process.GetProcessById(s.ProcessId).ProcessName);
-                        if (Process.GetProcessById(s.ProcessId).ProcessName.Equals(default_app_1))
-                        {
-                            s1 = s;
-                            list_1.SelectedItem = Process.GetProcessById(s1.ProcessId).ProcessName;
-                        }
-                        else if (Process.GetProcessById(s.ProcessId).ProcessName.Equals(default_app_2))
-                        {
-                            s2 = s;
-                            list_2.SelectedItem = Process.GetProcessById(s2.ProcessId).ProcessName;
-                        }
                     }
                 }
+            }
+            if (ConfigurationManager.AppSettings["control_default"].Equals("true"))
+            {
+                controlDefault.Checked = true;
+            }
+            else if (saved0.Length > 0)
+            {
+                select_app_0.Select();
+                if (!list_0.Items.Contains(saved0))
+                {
+                    list_0.Items.Add(saved0);
+                }
+                list_0.SelectedItem = saved0;
+            }
+            if (saved1.Length > 0)
+            {
+                if (!list_1.Items.Contains(saved1))
+                {
+                    list_1.Items.Add(saved1);
+                }
+                list_1.SelectedItem = saved1;
+            }
+            if (saved2.Length > 0)
+            {
+                if (!list_2.Items.Contains(saved2))
+                {
+                    list_2.Items.Add(saved2);
+                }
+                list_2.SelectedItem = saved2;
+            }
+            if (saved3.Length > 0)
+            {
+                if (!list_3.Items.Contains(saved3))
+                {
+                    list_3.Items.Add(saved3);
+                    
+                }
+                list_3.SelectedItem = saved3;
             }
         }
 
@@ -165,7 +195,8 @@ namespace MixerController
                     {
                         if (s0 != null)
                         {
-                            s0.Volume = int.Parse(line.Substring(1));
+                            List<IAudioSession> l = audioController.DefaultPlaybackDevice.SessionController.ActiveSessions().Where(x => Process.GetProcessById(x.ProcessId).ProcessName.Equals(s0)).ToList();
+                            if(l.Count > 0) { l.First().Volume = int.Parse(line.Substring(1)); }
                         }
                     }
                     else if (dev_0.Checked)
@@ -183,7 +214,8 @@ namespace MixerController
                 {
                     if (s1 != null)
                     {
-                        s1.Volume = int.Parse(line.Substring(1));
+                        List<IAudioSession> l = audioController.DefaultPlaybackDevice.SessionController.ActiveSessions().Where(x => Process.GetProcessById(x.ProcessId).ProcessName.Equals(s1)).ToList();
+                        if (l.Count > 0) { l.First().Volume = int.Parse(line.Substring(1)); }
                     }
                 }
                 else if (dev_1.Checked)
@@ -200,7 +232,8 @@ namespace MixerController
                 {
                     if (s2 != null)
                     {
-                        s2.Volume = int.Parse(line.Substring(1));
+                        List<IAudioSession> l = audioController.DefaultPlaybackDevice.SessionController.ActiveSessions().Where(x => Process.GetProcessById(x.ProcessId).ProcessName.Equals(s2)).ToList();
+                        if (l.Count > 0) { l.First().Volume = int.Parse(line.Substring(1)); }
                     }
                 }
                 else if (dev_2.Checked)
@@ -217,7 +250,8 @@ namespace MixerController
                 {
                     if (s3 != null)
                     {
-                        s3.Volume = int.Parse(line.Substring(1));
+                        List<IAudioSession> l = audioController.DefaultPlaybackDevice.SessionController.ActiveSessions().Where(x => Process.GetProcessById(x.ProcessId).ProcessName.Equals(s3)).ToList();
+                        if (l.Count > 0) { l.First().Volume = int.Parse(line.Substring(1)); }
                     }
                 }
                 else if (dev_3.Checked)
@@ -324,6 +358,8 @@ namespace MixerController
             else if (select_app_0.Checked)
             {
                 SetSession(list_0, 0);
+                
+                
             }
         }
 
@@ -391,31 +427,23 @@ namespace MixerController
 
         private void SetSession(ComboBox list, int ses)
         {
-            foreach (CoreAudioDevice d in audioController.GetDevices())
+            if (ses == 0)
             {
-                if ((d.IsDefaultDevice || d.IsDefaultCommunicationsDevice) && d.IsPlaybackDevice)
-                {
-                    foreach (IAudioSession s in d.SessionController.ActiveSessions())
-                    {
-                        if (Process.GetProcessById(s.ProcessId).ProcessName.Equals(list.SelectedItem.ToString()))
-                        {
-                            if (ses == 0)
-                            {
-                                s0 = s;
-                            }else if(ses == 1)
-                            {
-                                s1 = s;
-                            }else if(ses == 2)
-                            {
-                                s2 = s;
-                            }else if(ses == 3)
-                            {
-                                s3 = s;
-                            }
-                        }
-                    }
-                }
+                s0 = list.SelectedItem.ToString();
             }
+            else if(ses == 1)
+            {
+                s1 = list.SelectedItem.ToString();
+            }else if(ses == 2)
+            {
+                s2 = list.SelectedItem.ToString();
+            }else if(ses == 3)
+            {
+                s3 = list.SelectedItem.ToString();
+            }
+            configManager.AppSettings.Settings.Remove("app" + ses);
+            configManager.AppSettings.Settings.Add("app" + ses, list.SelectedItem.ToString());
+            configManager.Save(ConfigurationSaveMode.Modified);
         }
 
         private void select_app_0_CheckedChanged(object sender, EventArgs e)
@@ -461,10 +489,6 @@ namespace MixerController
         private void MixerController_FormClosing(object sender, FormClosingEventArgs e)
         {
             notifyIcon.Visible = false;
-            if (t != null)
-            {
-                t.Abort();
-            }
         }
 
         private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
@@ -486,6 +510,11 @@ namespace MixerController
                 select_app_0.Enabled = false;
                 list_0.Enabled = false;
                 refresh_0.Enabled = false;
+                configManager.AppSettings.Settings.Remove("app0");
+                configManager.AppSettings.Settings.Add("app0", "");
+                configManager.AppSettings.Settings.Remove("control_default");
+                configManager.AppSettings.Settings.Add("control_default", "true");
+                configManager.Save(ConfigurationSaveMode.Modified);
             }
             else
             {
@@ -493,6 +522,8 @@ namespace MixerController
                 select_app_0.Enabled = true;
                 list_0.Enabled = true;
                 refresh_0.Enabled = true;
+                configManager.AppSettings.Settings.Add("control_default", "false");
+                configManager.Save(ConfigurationSaveMode.Modified);
             }
         }
     }

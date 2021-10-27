@@ -64,8 +64,10 @@
             // 
             // com_ports
             // 
+            this.com_ports.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.com_ports.FormattingEnabled = true;
             this.com_ports.Location = new System.Drawing.Point(63, 2);
+            this.com_ports.MaxDropDownItems = 20;
             this.com_ports.Name = "com_ports";
             this.com_ports.Size = new System.Drawing.Size(70, 21);
             this.com_ports.TabIndex = 0;
@@ -82,6 +84,7 @@
             // 
             // list_0
             // 
+            this.list_0.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.list_0.FormattingEnabled = true;
             this.list_0.Location = new System.Drawing.Point(12, 67);
             this.list_0.Name = "list_0";
@@ -135,8 +138,10 @@
             // 
             // list_1
             // 
+            this.list_1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.list_1.FormattingEnabled = true;
             this.list_1.Location = new System.Drawing.Point(12, 123);
+            this.list_1.MaxDropDownItems = 10;
             this.list_1.Name = "list_1";
             this.list_1.Size = new System.Drawing.Size(138, 21);
             this.list_1.TabIndex = 6;
@@ -154,6 +159,7 @@
             // 
             // list_2
             // 
+            this.list_2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.list_2.FormattingEnabled = true;
             this.list_2.Location = new System.Drawing.Point(12, 180);
             this.list_2.Name = "list_2";
@@ -173,6 +179,7 @@
             // 
             // list_3
             // 
+            this.list_3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.list_3.FormattingEnabled = true;
             this.list_3.Location = new System.Drawing.Point(12, 240);
             this.list_3.Name = "list_3";
