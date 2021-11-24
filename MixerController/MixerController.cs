@@ -423,6 +423,9 @@ namespace MixerController
                     }
                 }
             }
+            configManager.AppSettings.Settings.Remove("app" + d);
+            configManager.AppSettings.Settings.Add("app" + d, "");
+            configManager.Save(ConfigurationSaveMode.Modified);
         }
 
         private void SetSession(ComboBox list, int ses)
