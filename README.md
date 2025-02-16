@@ -18,3 +18,7 @@ You can modify the ports where the potentiometers are connected. By default, the
 ## Notes
 * There is a checkbox named *Control default*. This checkbox will make the MixerController control with the first potentiometer whichever is the default output device in that moment. If the default output device is changed in the Windows settings, MixerController will change automatically to control it.
 * If the application doesn't show on the list, try to play some audio on that application and then click the *Refresh* button while the audio is playing.
+
+
+## Demo
+[Youtube](https://youtu.be/5Ogaj28Uj90)
