@@ -2,10 +2,6 @@
 #define POT_1_PIN A1
 #define POT_2_PIN A2
 #define POT_3_PIN A3
-#define BTN_PIN 2
-
-long BTN_LAST = 0;
-long BTN_THRESHHOLD = 500;
 
 long POT_0_VAL = 0;
 long last_POT_0_VAL = -1;
@@ -24,8 +20,6 @@ void setup() {
   pinMode(POT_1_PIN, INPUT);
   pinMode(POT_2_PIN, INPUT);
   pinMode(POT_3_PIN, INPUT);
-  pinMode(BTN_PIN, INPUT);
-  attachInterrupt(digitalPinToInterrupt(BTN_PIN), BTN_FUNC, RISING);
   Serial.begin(9600);
 }
 
@@ -63,13 +57,4 @@ void loop() {
     last_POT_3_VAL = POT_3_VAL;
   }
   delay(100);
-}
-
-void BTN_FUNC(){
-  if(millis() - BTN_LAST > BTN_THRESHHOLD){
-    Serial.print("B");
-    Serial.print(digitalRead(BTN_PIN));
-    Serial.print("\n");
-    BTN_LAST = millis();
-  }
 }
